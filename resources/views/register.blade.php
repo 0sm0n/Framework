@@ -9,8 +9,8 @@
 </head>
 <body>
 <form action="{{ route('register') }}" method="POST">
-    @if(session()->has('Success'))
-        <h3>{{ session()->get('errorSuccess') }}</h3>
+    @if(session()->has('success'))
+        <h3>Операция регистрации успешно выполнена</h3>
     @endif
     @csrf
     <input type="text" name="name" placeholder="Ваша имя:"><br>

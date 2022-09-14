@@ -35,12 +35,17 @@ class UserController extends Controller
         return back()->with(['errorSuccess' => 'Не верный логин или пароль']);
     }
 
+    /**
+     * Страница показа формы регистрации
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function register()
     {
-    return view('register');
+        return view('register');
     }
 
     /**
+     * Операция регистрации нового рользователя
      * @param RequestValidationRegister $register
      * @return void
      */
@@ -49,8 +54,8 @@ class UserController extends Controller
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
 
-        User::created($data);
+        User::create($data);
 
-        return back()->
+        return back()->with(['success' => true]);
     }
 }
