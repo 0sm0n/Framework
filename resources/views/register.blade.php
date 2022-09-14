@@ -1,27 +1,74 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Страница авторизации</title>
-</head>
-<body>
-<form action="{{ route('register') }}" method="POST">
-    @if(session()->has('success'))
-        <h3>Операция регистрации успешно выполнена</h3>
-    @endif
-    @csrf
-    <input type="text" name="name" placeholder="Ваша имя:"><br>
-    @error('name')<p>{{ $message }}</p>@enderror
-    <input type="email" name="email" placeholder="Ваша почта:"><br>
-    @error('email')<p>{{ $message }}</p>@enderror
-    <input type="password" name="password" placeholder="Ваша пароль:"><br>
-    @error('password')<p>{{ $message }}</p>@enderror
-    <input type="password" name="password_confirmation" placeholder="Ваша пароль повторно:"><br>
+@extends('index')
 
-    <input type="submit" value="Регистрация">
-</form>
-</body>
-</html>
+@section('title', 'Страница регистрации')
+
+@section('content')
+    <div class="container p-4">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <form action="{{ route('register') }}" method="POST">
+                    @if(session()->has('success'))
+                        <div class="alert alert-success">Операция регистрации успешно выполнена</div>
+                    @endif
+                    @csrf
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Ваше имя</label>
+                        <input type="text"
+                               class="form-control @error('name') is-invalid @enderror"
+                               id="inputName"
+                               name="name"
+                               aria-describedby="invalidName">
+                        @error('name')
+                        <div id="invalidName" class="invalid-feedback">
+                            You must agree before submitting.
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label">Ваше почта</label>
+                        <input type="email"
+                               class="form-control @error('email') is-invalid @enderror"
+                               id="inputEmail"
+                               name="email"
+                               aria-describedby="invalidEmail">
+                        @error('email')
+                        <div id="invalidEmail" class="invalid-feedback">
+                            You must agree before submitting.
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">Ваше пароль</label>
+                        <input type="password"
+                               class="form-control @error('password') is-invalid @enderror"
+                               id="inputPassword"
+                               name="password"
+                               aria-describedby="invalidPassword">
+                        @error('password')
+                        <div id="invalidPassword" class="invalid-feedback">
+                            You must agree before submitting.
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPasswordConfirmation" class="form-label">Ваше пароль повторно</label>
+                        <input type="password"
+                               class="form-control @error('password_confirmation') is-invalid @enderror"
+                               id="inputPasswordConfirmation"
+                               name="password_confirmation"
+                               aria-describedby="invalidPasswordConfirmation">
+                        @error('password_confirmation')
+                        <div id="invalidPasswordConfirmation" class="invalid-feedback">
+                            You must agree before submitting.
+                        </div>
+                        @enderror
+                    </div>
+
+                        <button type="submit" class="btn btn-primary">Регистрация</button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+@endsection
